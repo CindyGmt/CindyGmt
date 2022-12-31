@@ -1,0 +1,13 @@
+
+.logo{
+	margin: 0 10px;
+}
+.nav_contain .uni-searchbar{
+	padding: 0;
+}
+.container {
+	padding: 20px;
+	font-size: 14px;
+	line-height: 24px;
+}
+

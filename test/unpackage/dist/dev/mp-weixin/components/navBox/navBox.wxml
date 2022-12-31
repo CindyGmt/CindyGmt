@@ -1,0 +1,1 @@
+<view class="nav_box" style="{{'height:'+(navigatorHeight+'px')+';'+('padding-top:'+(statusBarHeight+'px')+';')+('background-image:'+('url(../../static/img/bg.jpeg)')+';')}}"><view class="nav_contain" style="{{'width:'+(menuLeft+'px')+';'}}"><slot></slot></view></view>
