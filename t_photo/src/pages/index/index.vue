@@ -1,5 +1,5 @@
 <template>
-    <div class="index">
+    <div class="index_page">
       <top :class="isFixed ? 'isFixed' :''" id="searchBar"></top>
       <div class="contain">
         <router-view></router-view>
@@ -29,7 +29,7 @@
         methods: {
           handleScroll () {
             var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-            var offsetTop = 86
+            var offsetTop = 87
             if (scrollTop > offsetTop) {
             this.isFixed = true
             } else {
@@ -41,14 +41,16 @@
   </script>
    
   <style scoped lang="scss">
+  .index_page{
+    position: relative;
+  }
   .isFixed{
     position: fixed;
     z-index: 9;
-    width: 100%;
-    background-color: #000000a8;
+    background-color: #1a1a1a;
     opacity: 1;
-    box-shadow: 0 0 6px 3px rgb(0 0 0 / 60%);
-    transition: all 0.4s ease 0s;
+    box-shadow: 0 0 6px rgb(0 0 0 / 25%);
+    transition: all 0.5s ease 0s;
   }
   .contain{
     min-height: calc(100vh - 300px);

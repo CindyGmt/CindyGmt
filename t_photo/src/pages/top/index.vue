@@ -26,8 +26,10 @@ export default {
 </script>
 <style scoped lang="scss">
 .top{
+    width: 100%;
     height: 87px;
-    background: #000000a8;
+    background: transparent;
+    position: absolute;
     .nav_box{
         display: flex;
         justify-content: space-between;

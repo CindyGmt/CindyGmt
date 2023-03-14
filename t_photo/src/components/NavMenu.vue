@@ -2,9 +2,9 @@
     <div>
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <template v-for="item in navItem">
-                <el-menu-item v-if="!item.children || item.children.length === 0" :index="item.name">{{item.name}}</el-menu-item>
+                <el-menu-item v-if="!item.children || item.children.length === 0" :index="item.name">{{item.name}}<i class="underline"></i></el-menu-item>
                 <el-submenu v-else :index="item.name">
-                    <template slot="title">{{item.name}}</template>
+                    <template slot="title">{{item.name}}<i class="underline"></i></template>
                     <!-- 目前只考虑两层嵌套 -->
                     <el-menu-item v-for="child in item.children" :key="child.name" :index="child.name">{{child.name}}</el-menu-item>
                 </el-submenu>
@@ -98,17 +98,41 @@
 .el-menu{
     border-bottom: none;
     background-color:transparent;
-    .el-menu-item.is-active{
-        background: transparent;
-        color: #fff;
-        border-bottom: 2px solid #fff;
-    }
+
     .el-menu-item,.el-submenu{
         font-size: 16px;
         color: #999;
+        padding: 0 10px;
+        margin-left: 20px;
+        position: relative;
+        border-bottom: 0px solid transparent;
+        .underline{
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background-color: #fff;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+        }
         &:hover{
             color: #fff;
             background: transparent;
+            .underline{
+                opacity: 1;
+                width: 100%;
+                transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+            }
+        }
+    }
+    .el-menu-item.is-active{
+        background: transparent;
+        color: #fff;
+        border-bottom: 1px solid #fff;
+        .underline{
+            display: none;
         }
     }
 }
