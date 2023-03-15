@@ -1,6 +1,8 @@
 <!-- 简介 -->
 <template>
-    <div></div>
+    <section class="introduce_page" id="introduce_page">
+            <div class="bg"></div>
+        </section>
 </template>
 <script>
 export default{

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="nav-menu">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <template v-for="item in navItem">
                 <el-menu-item v-if="!item.children || item.children.length === 0" :index="item.name">{{item.name}}<i class="underline"></i></el-menu-item>
@@ -87,7 +87,12 @@
                     }
                 }
                 if(route){
-                    this.$router.push(route);
+                    let id = route.split('/')[1]
+                    if(route === '/'){
+                        id = 'main'
+                    }
+                    document.getElementById(`${id}_page`).scrollIntoView({ behavior: "smooth", block: 'center' });
+                    // this.$router.push(route);
                 }
             }
         }
@@ -95,12 +100,16 @@
 </script>
 
 <style scoped lang="scss">
-.el-menu{
+.nav-menu{
+    height: 100%;
+        display: flex;
+    align-items: center;
+    .el-menu{
     border-bottom: none;
     background-color:transparent;
 
     .el-menu-item,.el-submenu{
-        font-size: 16px;
+        font-size: 15px;
         color: #999;
         padding: 0 10px;
         margin-left: 20px;
@@ -120,20 +129,11 @@
         &:hover{
             color: #fff;
             background: transparent;
-            .underline{
-                opacity: 1;
-                width: 100%;
-                transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
-            }
         }
     }
     .el-menu-item.is-active{
         background: transparent;
         color: #fff;
-        border-bottom: 1px solid #fff;
-        .underline{
-            display: none;
-        }
     }
 }
 ::v-deep.el-menu--horizontal{
@@ -142,5 +142,35 @@
             color: #999!important;
         }
     }
+}
+}
+
+@media screen and (max-width: 992px){
+    
+    .nav-menu{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 30%;
+            min-width: 200px;
+            background: #1a1a1a;
+            align-items: flex-start;
+            padding-top: 20px;
+            .el-menu{
+                .el-menu-item,.el-submenu{
+                    width: 100%;
+                    margin-left:0;
+                    text-align: left;
+                    padding-left: 30px;
+                    transition: padding-left 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+                    &:hover{ 
+                        padding-left: 35px;
+                        transition: padding-left 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+                    }
+                }
+            }
+            
+        }
 }
 </style>

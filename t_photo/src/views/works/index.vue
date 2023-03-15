@@ -1,6 +1,8 @@
 <!-- 作品 -->
 <template>
-    <div></div>
+    <section class="works_page" id="works_page">
+            <div class="bg"></div>
+        </section>
 </template>
 <script>
 export default{
