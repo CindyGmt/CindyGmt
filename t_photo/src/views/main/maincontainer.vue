@@ -14,12 +14,26 @@
                 </video>
             </div>
             <div class="bg"></div>
+            <div class="contain_bg">
+                <div class="vc_img_box">
+                    <img src="@/assets/img/vc.jpg" alt="">
+                </div>
+                <div class="vc_text_box">
+                    <div class="style_icon">
+                        <img src="@/assets/img/vc_line.jpg" alt="">
+                    </div>
+                    <div class="to_more">
+                        <span>更多视频<i class="el-icon-right"></i></span>
+                    </div>
+                </div>
+            </div>
         </section>
 </template>
 <script>
 </script>
 <style lang="scss" scoped>
 .main_page{
+    position: relative;
     .background-media{
         display: block;
         width: 100%;
@@ -32,6 +46,46 @@
         display: none;
         background: url('../../assets/img/bg/bg_5.jpg') no-repeat;
         background-size: 100% 100%;
+    }
+    .contain_bg{
+        background-color: rgba(22,22,22,0.6);
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        .vc_img_box{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            img{
+                width: 100%;
+            }
+        }
+        .vc_text_box{
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            .style_icon{
+                margin-bottom: 0.5rem;
+                img{
+                    width: 25rem;
+                    max-width: 182px;
+                }
+            }
+            .to_more{
+                display: inline-block;
+                padding: 1rem;
+                cursor: pointer;
+                span{
+                    color: #fff;
+                    padding-bottom: 0.6rem;
+                    border-bottom: 2px solid #fff;
+                }
+            } 
+        }
     }
 }
 @media screen and (max-width: 992px) {

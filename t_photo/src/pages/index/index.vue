@@ -1,5 +1,5 @@
 <template>
-    <div class="index_page">
+    <div class="index_page" @click="indxePageClick">
       <top :class="isFixed ? 'isFixed' :''" id="searchBar"></top>
       <div class="contain">
         <router-view></router-view>
@@ -18,12 +18,12 @@
         data() {
           return {
             isFixed: false
-          };
+            }
         },
         mounted () {
           window.addEventListener('scroll', this.handleScroll)
         },
-        destroyed () {
+        beforeDestroy () {
           window.removeEventListener('scroll', this.handleScroll)
         },
         methods: {
@@ -36,6 +36,13 @@
             this.isFixed = false
             }
           },
+          indxePageClick(){
+            let w = this.$store.state.app.resizeWidth
+            if(w <= 986){
+              this.$store.commit('SET_IFSHOW',false)
+            }
+            
+          }
         }
       };
   </script>
@@ -63,10 +70,11 @@
         }
     }
     .el-menu-item.is-active{
-      border-bottom: 1px solid #fff;
-        .underline{
-            display: none;
-        }
+      .underline{
+          opacity: 1;
+          width: 100%;
+          transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+      }
     }
   }
 }
@@ -74,6 +82,9 @@
     min-height: calc(100vh - 300px);
   }
   @media screen and (max-width: 992px) {
+    .contain{
+      padding-top: 56px;
+    }
     ::v-deep.isFixed{
         height: 56px;
         .nav-menu{

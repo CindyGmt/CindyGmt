@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
     export default {
         data(){
             return {
@@ -21,39 +22,50 @@
                 navItem:[
                     {
                         name:'首页',
-                        route:'/'
+                        id:'main_page'
                     },
                     {
                         name:'作品',
-                        route:'/works'
+                        id:'works_page'
                     },
                     {
                         name:'特点',
-                        route:'/characteristic'
+                        id:'characteristic_page'
                     },
                     {
                         name:'简介',
-                        route:'/introduce'
+                        id:'introduce_page'
                     },
                     {
                         name:'合作',
-                        route:'/cooperate'
+                        id:'cooperate_page'
                     },
                     {
                         name:'留言',
-                        route:'/leaveWord'
+                        id:'leaveWord_page'
                     },
                     {
                         name:'联系',
-                        route:'/contact'
+                        id:'contact_page'
                     },
                 ]
             }
+        },
+        computed: {
+            ...mapState({
+                observerName: state => state.navmenu.observerName
+            }),
         },
         watch:{
             $route:{
                 handler(n, o){
                     this.activeIndex = n.name
+                },
+                immediate: true
+            },
+            observerName:{
+                handler(n, o){
+                    this.activeIndex = n
                 },
                 immediate: true
             }
@@ -74,24 +86,25 @@
                 }
                 let i = 0
                 let arr = this.navItem
-                let route = ''
+                let id = ''
                 while(i < indexPath.length){
                     let name = indexPath[i]
                     let obj = foundItem(name, arr)
                     if(obj){
                         i++
-                        route = obj.route
+                        id = obj.id
                         arr = obj.children || []
                     }else{
-                        route = ''
+                        id = ''
                     }
                 }
-                if(route){
-                    let id = route.split('/')[1]
-                    if(route === '/'){
-                        id = 'main'
+                if(id){
+                    if(this.$route.path !== '/' && this.$route.path !== '/main'){
+                        this.$router.push('/' + id.split('_')[0])
+                    }else{
+                        document.getElementById(id) && document.getElementById(id).scrollIntoView({ behavior: "smooth", block: 'center' });
                     }
-                    document.getElementById(`${id}_page`).scrollIntoView({ behavior: "smooth", block: 'center' });
+                    
                     // this.$router.push(route);
                 }
             }
@@ -126,7 +139,7 @@
             opacity: 0;
             transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
         }
-        &:hover{
+        &:hover,&:focus{
             color: #fff;
             background: transparent;
         }

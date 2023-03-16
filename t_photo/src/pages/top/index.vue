@@ -1,14 +1,14 @@
 <template>
     <div class="top">
         <div class="nav_box">
-            <div class="menu_btn" @click="showMenu = true">
+            <div class="menu_btn" @click.stop="$store.commit('SET_IFSHOW',true)">
                 <svg-icon icon-class="menulist" />
             </div>
             <div class="logo_box">
                 <el-image :src="url" fit="contain" class="logo" lazy></el-image>
             </div>
             <transition name="fade">
-                <NavMenu v-show="showMenu"></NavMenu>
+                <NavMenu v-show="ifShow"></NavMenu>
             </transition>
             
         </div>
@@ -16,36 +16,37 @@
 </template>
 <script>
 import NavMenu from "@/pages/NavMenu.vue";
+import { mapState } from 'vuex'
 export default {
     components: {
         NavMenu
     },
     data(){
         return {
-            url: require('@/assets/img/logo/logo.jpg'),
-            showMenu:true
+            url: require('@/assets/img/logo/logo.jpg')
             // url: require('@/assets/img/logo.png')
         }
     },
+    computed: {
+        ...mapState({
+            resizeWidth: state => state.app.resizeWidth,
+            ifShow: state => state.navmenu.ifShow
+        }),
+    },
+    watch:{
+        resizeWidth:{
+            handler(n,o){
+                if(n <= 986){
+                    this.$store.commit('SET_IFSHOW',false)
+                }else{
+                    this.$store.commit('SET_IFSHOW',true)
+                }
+            },
+            immediate: true
+        },
+    },
     methods:{
     },
-    created(){
-        let w = document.body.clientWidth
-        if(w <= 992){
-            this.showMenu = false
-        }
-        window.onresize = () => {
-            let w = document.body.clientWidth
-            if(w <= 986){
-                this.showMenu = false
-            }else{
-                this.showMenu = true
-            }
-        }
-    },
-    beforeDestroy(){
-        window.removeEventListener('resize');
-    }
 }
 </script>
 <style scoped lang="scss">
@@ -72,7 +73,7 @@ export default {
         }
         .logo_box{
             display: flex;
-            width: 270px;
+            width: 13rem;
             height: 100%;
             justify-content: space-between;
             align-items: center;
