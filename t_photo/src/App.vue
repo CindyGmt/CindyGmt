@@ -23,14 +23,8 @@ export default {
       this.$store.commit('SET_RESIZEWIDTH',w)
       let fontSize
       let fW = document.documentElement.clientWidth
-      if(fW > 986){
-        fontSize = fW*1/100
-      }else if(fW > 600){
-        fontSize = fW*1/50
-      }else{
-        fontSize = fW*1/25
-      }
-        document.documentElement.style.fontSize = fontSize + 'px';
+      fontSize = fW*1/100
+      document.documentElement.style.fontSize = fontSize + 'px';
       
     }
   }

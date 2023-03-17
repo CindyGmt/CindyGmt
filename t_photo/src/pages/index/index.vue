@@ -38,7 +38,7 @@
           },
           indxePageClick(){
             let w = this.$store.state.app.resizeWidth
-            if(w <= 986){
+            if(w <= 768){
               this.$store.commit('SET_IFSHOW',false)
             }
             
@@ -81,7 +81,7 @@
   .contain{
     min-height: calc(100vh - 300px);
   }
-  @media screen and (max-width: 992px) {
+  @media screen and (max-width: 768px) {
     .contain{
       padding-top: 56px;
     }

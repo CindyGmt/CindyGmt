@@ -122,7 +122,7 @@ import { mapState } from 'vuex'
     background-color:transparent;
 
     .el-menu-item,.el-submenu{
-        font-size: 15px;
+        font-size: 0.8rem;
         color: #999;
         padding: 0 10px;
         margin-left: 20px;
@@ -158,7 +158,7 @@ import { mapState } from 'vuex'
 }
 }
 
-@media screen and (max-width: 992px){
+@media screen and (max-width: 768px){
     
     .nav-menu{
             position: absolute;
@@ -172,6 +172,7 @@ import { mapState } from 'vuex'
             padding-top: 20px;
             .el-menu{
                 .el-menu-item,.el-submenu{
+                    font-size: 12px;
                     width: 100%;
                     margin-left:0;
                     text-align: left;

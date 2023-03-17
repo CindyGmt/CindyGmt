@@ -36,7 +36,7 @@ export default {
     watch:{
         resizeWidth:{
             handler(n,o){
-                if(n <= 986){
+                if(n <= 768){
                     this.$store.commit('SET_IFSHOW',false)
                 }else{
                     this.$store.commit('SET_IFSHOW',true)
@@ -81,7 +81,7 @@ export default {
         }
     }
 }
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 768px) {
     .top{
         height: 56px;
     position: fixed;

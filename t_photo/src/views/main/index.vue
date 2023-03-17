@@ -67,7 +67,7 @@ export default{
         
         observerEl(){
               const getFocus = (entries, observer) => {
-                if(this.resizeWidth <= 986)return
+                if(this.resizeWidth <= 768)return
                 if(entries.length > 0){
                   let entry = entries[0]
                   let entriesNavItem = this.navItem.filter(item => {
