@@ -45,7 +45,7 @@ export default{
     
 }
 </script>
-<style scopr lang="scss">
+<style scoped lang="scss">
 .characteristic_page{
     .bg{
         background: url('../../assets/img/bg/bg_1.jpg') no-repeat;
@@ -56,14 +56,16 @@ export default{
             width: 100%;
             padding-top: 6rem;
             .title1{
-                padding: 0.5rem 0 3rem 0;
+                padding: 2.5rem 0 6rem 0;
                 font-size: 1.68rem;
             }
             .contain{
                 padding-bottom: 5rem;
                 .list-box{
                     display: flex;
+                    justify-content: center;
                     .list-item{
+                        margin: 0 2rem;
                         img{
                             width: 16.8rem;
                         }
@@ -73,8 +75,8 @@ export default{
                         }
                         p{
                             font-size: 0.73rem;
-                            max-width: 325px;
-    text-align: center;
+                            width: 16.8rem;
+                            text-align: center;
                         }
                     }
                 }
@@ -90,7 +92,28 @@ export default{
             .contain_box{
         .title1{
             font-size: 16px;
+            padding: 0.5rem 10rem 3rem 10rem;
         }
+            .contain{
+                .list-box{
+                    flex-direction: column;
+                    .list-item{
+                        padding-bottom: 6rem;
+                        img{
+                            width: 75rem;
+                            max-width: 322px;
+                        }
+                        h1{
+                            font-size: 12px;
+                        }
+                        p{
+                            margin: 0 auto;
+                            font-size: 10px;
+                            width: 75rem;
+                        }
+                    }
+                }
+            }
         
         
     }

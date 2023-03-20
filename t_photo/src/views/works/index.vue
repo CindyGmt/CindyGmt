@@ -67,7 +67,7 @@ export default{
                     display: flex;
                     justify-content: center;
                     .video_item{
-                        max-width: 600px;
+                        width: 31.25rem;
                         .title2{
                             padding: 0.5rem 0;
                             font-size: 0.84rem;
@@ -105,7 +105,7 @@ export default{
                 // display: flex;
                 // justify-content: center;
                 .video_item{
-                    // max-width: 600px;
+                    width: 45rem;
                     .title2{
                         font-size: 12px;
                     }
