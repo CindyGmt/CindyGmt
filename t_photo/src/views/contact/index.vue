@@ -10,7 +10,7 @@ export default{
     
 }
 </script>
-<style scopr lang="scss">
+<style scoped lang="scss">
 .contact_page{
     position: relative;
     .bg{
