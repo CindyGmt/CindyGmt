@@ -73,6 +73,9 @@ export default{
             .title1{
                 padding: 3rem 0 2rem 0;
                 font-size: 1.68rem;
+                margin: 0 auto;
+                width: 60rem;
+                text-align: left;
             }
             .contain{
                 padding-bottom: 5rem;
@@ -135,18 +138,20 @@ export default{
         .contain_box{
             .title1{
                 font-size: 16px;
+                width: 85rem;
+                text-align: left;
             }
             .contain{
                 .leave-word-box{
                     flex-direction: column;
                     align-items: center;
                     .leave-word{
-                        width: 80rem;
+                        width: 85rem;
                         font-size: 14px;
                     }
                     
                     .form-box{
-                        width: 80rem;
+                        width: 85rem;
                         .el-form-item__label{
                             font-size: 14px;
                         }

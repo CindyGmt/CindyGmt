@@ -2,7 +2,21 @@
 <template>
     <section class="contact_page" id="contact_page">
             <div class="bg"></div>
-            <div class="background-overlay"></div>
+            <div class="background-overlay">
+                <div class="contain_box base-font">
+                    <div class="contain">
+                        <div class="contact-item">
+                            <div class="item-title">社交网络</div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="item-title">联系我购买视频</div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="item-title">联系地址</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 </template>
 <script>

@@ -111,16 +111,14 @@ export default{
                     flex-direction: column;
                     align-items: center;
                     .cooperate-item{
-                        width: 90rem;
-                        max-width: 90rem;
-                        min-width: 90rem;
+                        width: 85rem;
+                        max-width: 85rem;
+                        min-width: 85rem;
                         margin-bottom: 3rem;
                         .item-title{
                             font-size: 14px;
-                            text-align: center;
                         }
                         p{
-                            text-align: center;
                             font-size: 12px;
                             margin: 1rem 0;
                         }
