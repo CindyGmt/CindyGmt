@@ -59,7 +59,7 @@ export default{
         display: flex;
         justify-content: space-around;
         align-items: center;
-        padding: 0 10rem;
+        padding: 10rem;
         box-sizing: border-box;
         flex-wrap: wrap;
         .contact-item{
@@ -117,7 +117,6 @@ export default{
     .background-overlay{
         flex-direction: column;
         flex-wrap: nowrap;
-        padding: 10rem;
         .contact-item{
             height: auto;
             width: auto;
