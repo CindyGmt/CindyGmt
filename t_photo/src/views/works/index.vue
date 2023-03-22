@@ -105,7 +105,7 @@ export default{
                 // display: flex;
                 // justify-content: center;
                 .video_item{
-                    width: 45%;
+                    width: 45%!important;
                     .title2{
                         font-size: 14px;
                     }
