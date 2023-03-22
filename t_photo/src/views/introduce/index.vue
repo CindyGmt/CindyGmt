@@ -146,7 +146,7 @@ export default{
                                 }
                                 .el-collapse-item__wrap{
                                     .el-collapse-item__content{
-                                        font-size: 12px;
+                                        font-size: 13px;
                                     }
                                 }
                             }
