@@ -98,6 +98,7 @@
         }
         .contain_bg{
             .vc_text_box{
+                bottom: 5%;
                 .style_icon{
                     img{
                         width: 20rem;
@@ -117,7 +118,7 @@
             .vc_text_box{
                 .to_more{
                     span{
-                        font-size: 12px;
+                        font-size: 15px;
                     }
                 }
             }

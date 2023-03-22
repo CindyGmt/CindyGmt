@@ -65,7 +65,7 @@ export default {
         position: relative;
         .menu_btn{
             display: none;
-            font-size: 20px;
+            font-size: 25px;
             cursor: pointer;
             padding: 5px;
             position: absolute;
@@ -95,7 +95,7 @@ export default {
             display: block;
         }
         .logo_box{
-            width: 100px;
+            width: 150px;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);

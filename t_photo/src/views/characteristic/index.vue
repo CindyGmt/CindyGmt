@@ -91,7 +91,7 @@ export default{
         .bg{
             .contain_box{
         .title1{
-            font-size: 16px;
+            font-size: 18px;
             padding: 0.5rem 10rem 3rem 10rem;
         }
             .contain{
@@ -104,11 +104,11 @@ export default{
                             max-width: 322px;
                         }
                         h1{
-                            font-size: 12px;
+                            font-size: 14px;
                         }
                         p{
                             margin: 0 auto;
-                            font-size: 10px;
+                            font-size: 12px;
                             width: 75rem;
                         }
                     }

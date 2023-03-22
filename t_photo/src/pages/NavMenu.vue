@@ -172,7 +172,7 @@ import { mapState } from 'vuex'
             padding-top: 20px;
             .el-menu{
                 .el-menu-item,.el-submenu{
-                    font-size: 12px;
+                    font-size: 15px;
                     width: 100%;
                     margin-left:0;
                     text-align: left;

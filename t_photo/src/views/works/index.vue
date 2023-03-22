@@ -98,24 +98,24 @@ export default{
         .bg{
             .contain_box{
         .title1{
-            font-size: 16px;
+            font-size: 18px;
         }
         .contain{
             .video_box{
                 // display: flex;
                 // justify-content: center;
                 .video_item{
-                    width: 45rem;
+                    width: 45%;
                     .title2{
-                        font-size: 12px;
+                        font-size: 14px;
                     }
                 }
             }
             .tips{
-                    font-size: 10px;
+                    font-size: 12px;
                 }
                 .btn{
-                    font-size: 10px;
+                    font-size: 15px;
                     padding: 5px 15px;
                 }
         }

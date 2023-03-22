@@ -104,7 +104,7 @@ export default{
         .bg{
         .contain_box{
             .title1{
-                font-size: 16px;
+                font-size: 18px;
             }
             .contain{
                 .cooperate-box{
@@ -116,17 +116,17 @@ export default{
                         min-width: 85rem;
                         margin-bottom: 3rem;
                         .item-title{
-                            font-size: 14px;
+                            font-size: 16px;
                         }
                         p{
-                            font-size: 12px;
+                            font-size: 14px;
                             margin: 1rem 0;
                         }
                         ul{
-                            font-size: 12px;  
+                            font-size: 14px;  
                         }
                         .red-p{
-                            font-size: 12px;
+                            font-size: 14px;
                         }
                     }
                 }

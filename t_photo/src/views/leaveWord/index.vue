@@ -137,7 +137,7 @@ export default{
         .bg{
         .contain_box{
             .title1{
-                font-size: 16px;
+                font-size: 18px;
                 width: 85rem;
                 text-align: left;
             }
@@ -153,15 +153,15 @@ export default{
                     .form-box{
                         width: 85rem;
                         .el-form-item__label{
-                            font-size: 14px;
+                            font-size: 15px;
                         }
                         .el-form-item__content{
                             .el-form-item__error{
-                                font-size: 12px;
+                                font-size: 13px;
                             }
                         }
                         .btn{
-                            font-size: 12px;
+                            font-size: 15px;
                             padding: 5px 15px;
                         }
                     }

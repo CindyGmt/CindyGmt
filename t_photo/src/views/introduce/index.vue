@@ -129,7 +129,7 @@ export default{
         .bg{
         .contain_box{
             .title1{
-                font-size: 16px;
+                font-size: 18px;
             }
             .contain{
                 .introduce-box{
@@ -142,11 +142,11 @@ export default{
                         .el-collapse{
                             .el-collapse-item{
                                 .el-collapse-item__header{
-                                    font-size: 12px;
+                                    font-size: 14px;
                                 }
                                 .el-collapse-item__wrap{
                                     .el-collapse-item__content{
-                                        font-size: 10px;
+                                        font-size: 12px;
                                     }
                                 }
                             }
