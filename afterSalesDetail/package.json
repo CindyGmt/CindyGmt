@@ -1,0 +1,52 @@
+{
+  "name": "tf_h5",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dsbridge": "^3.1.4",
+    "js-cookie": "^3.0.1"
+  },
+  "description": "",
+	"uni-app": {
+		"scripts": {
+			"dev": {
+				"title": "开发版",
+				"env": {
+					"UNI_PLATFORM": "h5",
+					"VUE_APP_BASE_URL":"/devapi/"
+				}
+			},
+			"local": {
+				"title": "本地版",
+				"env": {
+					"UNI_PLATFORM": "h5",
+					"VUE_APP_BASE_URL":"http://localhost:60001/"
+				}
+			},
+			"pre": {
+				"title": "测试版",
+				"env": {
+					"UNI_PLATFORM": "h5",
+					"VUE_APP_BASE_URL":"http://192.168.60.100:60001/"
+				}
+			},
+			"prod": {
+				"title": "正式版",
+				"env": {
+					"UNI_PLATFORM": "h5",
+					"VUE_APP_BASE_URL":"http://store.tofulscloud.com:60003/"
+				}
+			}
+		}
+	}
+
+  
+  
+
+}

@@ -1,0 +1,41 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+            "style": {
+			}
+		}
+	    ,{
+            "path" : "pages/progressDetails/progressDetails",
+            "style": {
+			}
+            
+        }
+        ,{
+            "path" : "pages/returnLogistics/returnLogistics",
+            "style": {
+			}
+            
+        }
+        ,{
+            "path" : "pages/logisticsDetails/logisticsDetails",
+            "style": {
+			}
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationStyle": "custom",
+		"navigationBarRightButton": {
+			"hide": true //取消胶囊按钮
+		},
+		"backgroundColor": "#fbf9fe",
+		"h5":{
+			"pullToRefresh":{
+				"color": "#E80707",
+				"offset": "120px"
+			}
+		}
+	},
+	"uniIdRouter": {}
+}
