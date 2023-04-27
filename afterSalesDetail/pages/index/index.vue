@@ -133,7 +133,7 @@
 							n[this.shopAdressInfo.street] +
 							this.shopAdressInfo.detailedAddress
 						this.shopAdressInfo.address = address
-						getApp().globalData.shopAdressInfo = that.shopAdressInfo
+						getApp().globalData.shopAdressInfo = this.shopAdressInfo
 					}
 					
 				}
@@ -141,9 +141,6 @@
 		},
 		onLoad() {
 			this.getAfterSalesDetails()
-			if(JSON.stringify(this.shopAdressInfo) !== '{}'){
-				this.getJson()
-			}
 		},
 		methods: {
 			downCallback() {
@@ -247,6 +244,7 @@
 						}
 						
 						getApp().globalData.userAdressInfo = userAdressInfo
+						that.getJson()
 						that.mescroll.endSuccess()
 					} else {
 						this.mescroll.endErr()
