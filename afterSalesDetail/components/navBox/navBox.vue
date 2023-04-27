@@ -1,5 +1,5 @@
 <template>
-	<view :class="['nav_box', type === 'black' ? 'nav_box_black' : '']" :style="{height: navigatorHeight + 'rpx', 'padding-top': statusBarHeight + 'px'}">
+	<view :class="['nav_box', type === 'black' ? 'nav_box_black' : '']" :style="{height: navigatorHeight + 'rpx'}">
 		<image v-if="type === 'black' " class="goback" src='../../common/img/goback_1.png' @click="goback"></image>
 		<image v-else class="goback" src='../../common/img/goback.png' @click="goback"></image>
 		<slot></slot>
@@ -18,7 +18,6 @@
 		data() {
 			return {
 				system:{},
-				statusBarHeight: 0, //状态栏的高度 
 				navigatorHeight: 0, //导航栏高度
 			};
 		},
@@ -26,12 +25,7 @@
 			//获取系统信息
 			this.system = uni.getSystemInfoSync()
 			
-			//计算组件高度
-			this.statusBarHeight = this.system.statusBarHeight //状态栏高度
 			this.navigatorHeight = 100 //导航栏高度
-			setTimeout(() => {
-				uni.$emit('getMenu', this.statusBarHeight)
-			}, 1000)
 		},
 		methods:{
 			goback(){

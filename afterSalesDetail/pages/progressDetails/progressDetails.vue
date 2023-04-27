@@ -1,9 +1,9 @@
 <template>
-	<view class="progress-details-page page-box" :style="{'padding-top': '100rpx','margin-top':statusBarHeight + 'px'}">
+	<view class="progress-details-page page-box" :style="{'padding-top': '100rpx'}">
 		<view class="page-nav">
 			<navBox type="black" @goback="goback">进度详情</navBox>
 		</view>
-		<view class="page-contain" :style="{'min-height': `calc(100vh - 100rpx - ${statusBarHeight}px)`}">
+		<view class="page-contain" :style="{'min-height': `calc(100vh - 100rpx`}">
 			<!-- 物流步骤条 -->
 			<view class="contain-item" style="background-color: transparent;">
 				<uni-steps :options="stepsList" active-color="#96CF50" :active="0" direction="column" />
@@ -16,15 +16,10 @@
 	export default {
 		data() {
 			return {
-				statusBarHeight: 0,
 				stepsList: []
 			};
 		},
 		onLoad() {
-			let that = this
-			uni.$on('getMenu', data => {
-				that.statusBarHeight = data
-			})
 		},
 		onShow() {
 			let that = this
@@ -38,10 +33,6 @@
 					})
 				})
 			}
-		},
-		onUnload() {
-			// 移除监听事件  
-			uni.$off('getMenu');
 		},
 		methods: {
 			goback() {

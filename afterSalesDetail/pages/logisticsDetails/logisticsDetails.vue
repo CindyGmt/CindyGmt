@@ -1,11 +1,11 @@
 <template>
 	<view class="logistics-details-page page-box"
-		:style="{'padding-top': '100rpx','margin-top':statusBarHeight + 'px'}">
+		:style="{'padding-top': '100rpx'}">
 		<view class="page-nav">
 			<navBox type="black" @goback="goback">退货物流详情</navBox>
 		</view>
 		<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption" :top='21'
-			:up="upOption" :selfMinHeight="`calc(100vh - 100rpx - ${statusBarHeight}px)`">
+			:up="upOption" :selfMinHeight="`calc(100vh - 100rpx)`">
 			<view class="page-contain">
 
 				<!-- 寄、收人信息 -->
@@ -51,7 +51,6 @@
 		mixins: [MescrollMixin], // 使用mixin
 		data() {
 			return {
-				statusBarHeight: 0,
 				downOption: {
 					auto: false,
 					beforeEndDelay: 300
@@ -69,10 +68,6 @@
 		onLoad(optoin) {
 			this.params = optoin
 			this.getLogisticsDetails()
-			let that = this
-			uni.$on('getMenu', data => {
-				that.statusBarHeight = data
-			})
 		},
 		onShow() {
 			this.logisticsAdressType = getApp().globalData.logisticsType
@@ -84,10 +79,6 @@
 				this.send = getApp().globalData.userAdressInfo || {}
 				this.putAway = getApp().globalData.shopAdressInfo || {}
 			}
-		},
-		onUnload() {
-			// 移除监听事件  
-			uni.$off('getMenu');
 		},
 		methods: {
 			downCallback() {

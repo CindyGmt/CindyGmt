@@ -1,11 +1,11 @@
 <template>
-	<view class="return-logistics-page page-box" :style="{'padding-top': '100rpx','margin-top':statusBarHeight + 'px'}">
+	<view class="return-logistics-page page-box" :style="{'padding-top': '100rpx'}">
 		<view class="page-nav">
 			<navBox type="black" @goback="goback">填写退货物流单号</navBox>
 		</view>
 		<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption" :top='21'
-			:up="upOption" :selfMinHeight="`calc(100vh - 100rpx - ${statusBarHeight}px)`">
-			<view class="page-contain" :style="{'min-height': `calc(100vh - 121rpx - ${statusBarHeight}px)`}">
+			:up="upOption" :selfMinHeight="`calc(100vh - 100rpx)`">
+			<view class="page-contain" :style="{'min-height': `calc(100vh - 121rpx)`}">
 				<!-- 提示语 -->
 				<view class="contain-item illustrate">
 					<text class="title">退货退款说明</text>
@@ -69,7 +69,6 @@
 		mixins: [MescrollMixin], // 使用mixin
 		data() {
 			return {
-				statusBarHeight: 0,
 				downOption: {
 					auto: false,
 					beforeEndDelay: 300
@@ -106,14 +105,7 @@
 			this.init(option)
 			let windowInfo = uni.getWindowInfo()
 			this.labelWidth = (windowInfo.screenWidth / 750) * 200
-			uni.$on('getMenu', data => {
-				this.statusBarHeight = data
-			})
 			this.getExpressList()
-		},
-		onUnload() {
-			// 移除监听事件  
-			uni.$off('getMenu');
 		},
 		methods: {
 			init(option) {

@@ -1,10 +1,10 @@
 <template>
-	<view class="index-page page-box" :style="{'padding-top': '100rpx','margin-top':statusBarHeight + 'px'}">
+	<view class="index-page page-box" :style="{'padding-top': '100rpx'}">
 		<view class="page-nav">
 			<navBox type="black" @goback="goback">售后详情</navBox>
 		</view>
 		<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption" :top='21'
-			:up="upOption" :selfMinHeight="`calc(100vh - 100rpx - ${statusBarHeight}px)`">
+			:up="upOption" :selfMinHeight="`calc(100vh - 100rpx)`">
 			<view class="page-contain">
 				<!-- 售后当前进度：退款进度、退货退款进度、换货进度 -->
 				<view class="contain-item overall-progress">
@@ -103,7 +103,6 @@
 		mixins: [MescrollMixin], // 使用mixin
 		data() {
 			return {
-				statusBarHeight: 0,
 				downOption: {
 					auto: false,
 					beforeEndDelay: 300
@@ -128,13 +127,6 @@
 		onLoad() {
 			this.getJson()
 			this.getAfterSalesDetails()
-			uni.$on('getMenu', data => {
-				this.statusBarHeight = data
-			})
-		},
-		onUnload() {
-			// 移除监听事件  
-			uni.$off('getMenu');
 		},
 		methods: {
 			downCallback() {
