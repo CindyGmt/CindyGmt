@@ -20,19 +20,23 @@
 			};
 		},
 		onLoad() {
+			const eventChannel = this.getOpenerEventChannel();
+			eventChannel.on('sendAftersaleLogList', function(data) {
+			    let that = this
+			    that.stepsList = []
+			    let aftersaleLogList = data
+			    if (aftersaleLogList.length > 0) {
+			    	aftersaleLogList.forEach(item => {
+			    		that.stepsList.push({
+			    			title: item.logcontent,
+			    			desc: that.parseTime(item.logtime)
+			    		})
+			    	})
+			    }
+			  })
 		},
 		onShow() {
-			let that = this
-			that.stepsList = []
-			let aftersaleLogList = getApp().globalData.aftersaleLogList
-			if (aftersaleLogList.length > 0) {
-				aftersaleLogList.forEach(item => {
-					that.stepsList.push({
-						title: item.logcontent,
-						desc: that.parseTime(item.logtime)
-					})
-				})
-			}
+			
 		},
 		methods: {
 			goback() {

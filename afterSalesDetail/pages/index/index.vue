@@ -41,7 +41,7 @@
 					<text class="title">
 						{{afterSale.aftersaletype}}商品
 					</text>
-					<view class="good-info pa-t-23 flex-box">
+					<view class="good-info pa-t-23 flex-box j-c-start">
 						<image class="good-img" :src="dingdanGood.photoPath" mode="scaleToFill"></image>
 						<view class="info-box ma-l-21 flex-box flex-col a-i-top">
 							<view class="w-100">
@@ -111,22 +111,39 @@
 					use: false
 				},
 				dictionary: {},
-				dingdan: {},
 				aftersaleLogList: [],
 				nowOverallProgress: {},
 				dingdanGood: {},
-				shopReturnsAddress: {},
 				afterSale: {},
-				shippingLogistics: [],
 				nowShippingLogistics: {},
 				shopAdressInfo: {},
-				userAdressInfo: {},
 				optionsNameMap: {}
 			}
 		},
+		watch:{
+			optionsNameMap:{
+				deep: true,
+				immediate: true,
+				handler(n,o){
+					if(JSON.stringify(n) !== '{}'){
+						let address =
+							n[this.shopAdressInfo.province] +
+							n[this.shopAdressInfo.city] +
+							n[this.shopAdressInfo.district] +
+							n[this.shopAdressInfo.street] +
+							this.shopAdressInfo.detailedAddress
+						this.shopAdressInfo.address = address
+						getApp().globalData.shopAdressInfo = that.shopAdressInfo
+					}
+					
+				}
+			}
+		},
 		onLoad() {
-			this.getJson()
 			this.getAfterSalesDetails()
+			if(JSON.stringify(this.shopAdressInfo) !== '{}'){
+				this.getJson()
+			}
 		},
 		methods: {
 			downCallback() {
@@ -172,7 +189,7 @@
 				let that = this
 				this.$api.post('Aftersale/afterSalesDetails', params).then(res => {
 					if (res.status === "success") {
-						that.dingdan = res.data.dingdan || {}
+						let dingdan = res.data.dingdan || {}
 						that.aftersaleLogList = res.data.aftersaleLogList || []
 						that.dingdanGood = res.data.dingdanGood || {}
 						that.dingdanGood.photoPath = that.$api.ip + res.data.dingdanGood.photoPath
@@ -184,7 +201,7 @@
 								that.dingdanGood.norms.push(obj)
 							})
 						}
-						that.shopReturnsAddress = res.data.shopReturnsAddress[0] || {}
+						let shopReturnsAddress = res.data.shopReturnsAddress[0] || {}
 						that.afterSale = res.data.afterSale || {}
 						that.nowOverallProgress = res.data.aftersaleLogList[0] || {}
 						if (res.data.dictionaryList && res.data.dictionaryList.length > 0) {
@@ -209,28 +226,27 @@
 								that.dictionary = dictionary[0]
 							}
 						}
-						let address =
-							that.optionsNameMap[that.shopReturnsAddress.province] +
-							that.optionsNameMap[that.shopReturnsAddress.city] +
-							that.optionsNameMap[that.shopReturnsAddress.district] +
-							that.optionsNameMap[that.shopReturnsAddress.street] +
-							that.shopReturnsAddress.detailedAddress
+						
 						that.shopAdressInfo = {
-							consignee: that.shopReturnsAddress.consignee || '',
-							phone: that.shopReturnsAddress.telephone || '',
-							address: address || ''
+							consignee: shopReturnsAddress.consignee || '',
+							phone: shopReturnsAddress.telephone || '',
+							province: shopReturnsAddress.province,
+							city: shopReturnsAddress.city,
+							district: shopReturnsAddress.district,
+							street: shopReturnsAddress.street,
+							detailedAddress: shopReturnsAddress.detailedAddress
 						}
-						if (that.dingdan.address && that.dingdan.address.value) {
-							let info = JSON.parse(that.dingdan.address.value)
-							that.userAdressInfo = {
+						let userAdressInfo = {}
+						if (dingdan.address && dingdan.address.value) {
+							let info = JSON.parse(dingdan.address.value)
+							userAdressInfo = {
 								consignee: info.consignee || '',
 								phone: info.telephone || '',
 								address: info.area ? info.area + (info.detailedAddress || '') : ''
 							}
 						}
-						getApp().globalData.aftersaleLogList = that.aftersaleLogList
-						getApp().globalData.shopAdressInfo = that.shopAdressInfo
-						getApp().globalData.userAdressInfo = that.userAdressInfo
+						
+						getApp().globalData.userAdressInfo = userAdressInfo
 						that.mescroll.endSuccess()
 					} else {
 						this.mescroll.endErr()
@@ -239,8 +255,13 @@
 			},
 			// 售后进度详情
 			goOverallProgressDetail() {
+				let that = this
 				uni.navigateTo({
-					url: '/pages/progressDetails/progressDetails'
+					url: '/pages/progressDetails/progressDetails',
+					success: function(res) {
+						// 通过eventChannel向被打开页面传送数据
+						res.eventChannel.emit('sendAftersaleLogList', that.aftersaleLogList)
+					}
 				})
 			},
 			// 获取发货物流详情
@@ -250,15 +271,16 @@
 					if (res.status === 'success') {
 						let data = JSON.parse(res.data)
 						if (data) {
+							let shippingLogistics = []
 							let stepsList = data.Traces || []
 							stepsList.reverse()
 							stepsList.forEach(item => {
-								that.shippingLogistics.push({
+								shippingLogistics.push({
 									title: item.AcceptStation,
 									desc: item.AcceptTime
 								})
 							})
-							that.nowShippingLogistics = that.shippingLogistics[0] || {}
+							that.nowShippingLogistics = shippingLogistics[0] || {}
 						}
 
 					}
