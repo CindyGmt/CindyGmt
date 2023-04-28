@@ -21,8 +21,8 @@
 		},
 		onLoad() {
 			const eventChannel = this.getOpenerEventChannel();
+			let that = this
 			eventChannel.on('sendAftersaleLogList', function(data) {
-			    let that = this
 			    that.stepsList = []
 			    let aftersaleLogList = data
 			    if (aftersaleLogList.length > 0) {
