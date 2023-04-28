@@ -52,7 +52,7 @@
 								</view>
 							</view>
 							<view class="info">
-								售后原因：{{dingdanGood.aftersaleReason}}
+								售后原因：{{afterSale.reason}}
 							</view>
 						</view>
 					</view>
