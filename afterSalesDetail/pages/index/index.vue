@@ -181,7 +181,8 @@
 			getAfterSalesDetails() {
 				let params = {
 					suoId: getApp().globalData.suoId,
-					orderId: getApp().globalData.orderId
+					orderId: getApp().globalData.orderId,
+					aftersaleId: getApp().globalData.aftersaleId
 				}
 				let that = this
 				this.$api.post('Aftersale/afterSalesDetails', params).then(res => {

@@ -4,6 +4,7 @@
 		globalData: {
 			suoId: '',
 			orderId: '',
+			aftersaleId: '',
 			logisticsType: '',
 			shopAdressInfo: {},
 			userAdressInfo: {},
@@ -35,6 +36,7 @@
 						})
 						that.globalData.suoId = data.suoId
 						that.globalData.orderId = data.orderId
+						that.globalData.aftersaleId = data.aftersaleId
 					}
 				})
 
