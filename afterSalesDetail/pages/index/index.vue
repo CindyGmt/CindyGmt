@@ -120,25 +120,6 @@
 				optionsNameMap: {}
 			}
 		},
-		watch:{
-			optionsNameMap:{
-				deep: true,
-				immediate: true,
-				handler(n,o){
-					if(JSON.stringify(n) !== '{}'){
-						let address =
-							n[this.shopAdressInfo.province] +
-							n[this.shopAdressInfo.city] +
-							n[this.shopAdressInfo.district] +
-							n[this.shopAdressInfo.street] +
-							this.shopAdressInfo.detailedAddress
-						this.shopAdressInfo.address = address
-						getApp().globalData.shopAdressInfo = this.shopAdressInfo
-					}
-					
-				}
-			}
-		},
 		onLoad() {
 			this.getAfterSalesDetails()
 		},
@@ -162,6 +143,7 @@
 			getJson: function() {
 				if (uni.getStorageSync('pcas_code')) {
 					this.nameMap(uni.getStorageSync('pcas_code'));
+					this.setAdress(this.optionsNameMap)
 					return
 				}
 				let that = this
@@ -172,7 +154,18 @@
 						data: res
 					})
 					that.nameMap(res);
+					that.setAdress(that.optionsNameMap)
 				})
+			},
+			setAdress(n){
+				let address =
+					n[this.shopAdressInfo.province] +
+					n[this.shopAdressInfo.city] +
+					n[this.shopAdressInfo.district] +
+					n[this.shopAdressInfo.street] +
+					this.shopAdressInfo.detailedAddress
+				this.shopAdressInfo.address = address
+				getApp().globalData.shopAdressInfo = this.shopAdressInfo
 			},
 			goback() {
 				this.$bridge.callmethod('goBack', {}, () => {})
