@@ -46,13 +46,20 @@
 						<view class="info-box ma-l-21 flex-box flex-col a-i-top">
 							<view class="w-100">
 								<text class="info-title word-nowrap">{{dingdanGood.gname}}</text>
-								<view class="info-detail dis-i-b">
+								<view class="info-detail dis-i-b" v-if="dingdanGood.norms && dingdanGood.norms.length > 0">
 									<text :class="[i > 0 ? 'ma-l-21' : '']" v-for="(item, i) in dingdanGood.norms"
 										:key="item.key">{{item.key + ':' + item.value}}</text>
 								</view>
 							</view>
-							<view class="info">
-								售后原因：{{afterSale.reason}}
+							<view class="bottom-box">
+								<view class="info dis-i-b">
+									售后原因：{{afterSale.reason}}
+								</view>
+								<view class="info dis-i-b ma-l-21" v-if="dingdanGood.newgoodsnorms && dingdanGood.newgoodsnorms.length > 0">
+									换货规格：
+									<text :class="[i > 0 ? 'ma-l-21' : '']" v-for="(item, i) in dingdanGood.newgoodsnorms"
+										:key="item.key">{{item.value}}</text>
+								</view>
 							</view>
 						</view>
 					</view>
@@ -159,12 +166,12 @@
 			},
 			setAdress(n){
 				let address =
-					n[this.shopAdressInfo.province] +
-					n[this.shopAdressInfo.city] +
-					n[this.shopAdressInfo.district] +
-					n[this.shopAdressInfo.street] +
-					this.shopAdressInfo.detailedAddress
-				this.shopAdressInfo.address = address
+					(n[this.shopAdressInfo.province] || '') +
+					(n[this.shopAdressInfo.city] || '') +
+					(n[this.shopAdressInfo.district] || '') +
+					(n[this.shopAdressInfo.street] || '') +
+					this.shopAdressInfo.detailedAddress ? this.shopAdressInfo.detailedAddress : ''
+					this.$set(this.shopAdressInfo, 'address', address)
 				getApp().globalData.shopAdressInfo = this.shopAdressInfo
 			},
 			goback() {
@@ -182,16 +189,27 @@
 					if (res.status === "success") {
 						let dingdan = res.data.dingdan || {}
 						that.aftersaleLogList = res.data.aftersaleLogList || []
-						that.dingdanGood = res.data.dingdanGood || {}
-						that.dingdanGood.photoPath = that.$api.ip + res.data.dingdanGood.photoPath
-						if (res.data.dingdanGood.norms.length > 0) {
-							let norms = res.data.dingdanGood.norms
-							that.dingdanGood.norms = []
+						let dingdanGood = res.data.dingdanGood || {}
+						dingdanGood.photoPath = that.$api.ip + res.data.dingdanGood.photoPath
+						if (dingdanGood.norms.length > 0) {
+							let norms = dingdanGood.norms
+							let objarr = []
 							norms.forEach(item => {
 								let obj = JSON.parse(item.value)
-								that.dingdanGood.norms.push(obj)
+								objarr.push(obj)
 							})
+							dingdanGood.norms = objarr
 						}
+						if(res.data.afterSale && res.data.afterSale.newgoodsnorms.length > 0){
+							let newgoodsnorms = res.data.afterSale.newgoodsnorms
+							let objarr = []
+							newgoodsnorms.forEach(item => {
+								let obj = JSON.parse(item.value)
+								objarr.push(obj)
+							})
+							dingdanGood.newgoodsnorms = objarr
+						}
+						that.dingdanGood = dingdanGood
 						let shopReturnsAddress = res.data.shopReturnsAddress[0] || {}
 						that.afterSale = res.data.afterSale || {}
 						that.nowOverallProgress = res.data.aftersaleLogList[0] || {}

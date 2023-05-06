@@ -2,7 +2,7 @@
 	<view class="logistics-details-page page-box"
 		:style="{'padding-top': '100rpx'}">
 		<view class="page-nav">
-			<navBox type="black" @goback="goback">退货物流详情</navBox>
+			<navBox type="black" @goback="goback">{{logisticsAdressType === 'shipping' ? '发货' : '退货'}}物流详情</navBox>
 		</view>
 		<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback" :down="downOption" :top='21'
 			:up="upOption" :selfMinHeight="`calc(100vh - 100rpx)`">
