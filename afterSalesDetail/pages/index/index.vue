@@ -46,19 +46,21 @@
 						<view class="info-box ma-l-21 flex-box flex-col a-i-top">
 							<view class="w-100">
 								<text class="info-title word-nowrap">{{dingdanGood.gname}}</text>
-								<view class="info-detail dis-i-b" v-if="dingdanGood.norms && dingdanGood.norms.length > 0">
+								<view class="info-detail dis-i-b"
+									v-if="dingdanGood.norms && dingdanGood.norms.length > 0">
 									<text :class="[i > 0 ? 'ma-l-21' : '']" v-for="(item, i) in dingdanGood.norms"
 										:key="item.key">{{item.key + ':' + item.value}}</text>
 								</view>
 							</view>
-							<view class="bottom-box">
+							<view class="bottom-box word-nowrap">
 								<view class="info dis-i-b">
 									售后原因：{{afterSale.reason}}
 								</view>
-								<view class="info dis-i-b ma-l-21" v-if="dingdanGood.newgoodsnorms && dingdanGood.newgoodsnorms.length > 0">
+								<view class="info dis-i-b ma-l-21"
+									v-if="dingdanGood.newgoodsnorms && dingdanGood.newgoodsnorms.length > 0">
 									换货规格：
-									<text :class="[i > 0 ? 'ma-l-21' : '']" v-for="(item, i) in dingdanGood.newgoodsnorms"
-										:key="i">{{item}}</text>
+									<text :class="[i > 0 ? 'ma-l-21' : '']"
+										v-for="(item, i) in dingdanGood.newgoodsnorms" :key="i">{{item}}</text>
 								</view>
 							</view>
 						</view>
@@ -123,9 +125,7 @@
 				dingdanGood: {},
 				afterSale: {},
 				nowShippingLogistics: {},
-				shopAdressInfo: {
-					address: ''
-				}
+				shopAdressInfo: {}
 			}
 		},
 		onLoad() {
@@ -165,14 +165,14 @@
 					that.setAdress(obj)
 				})
 			},
-			setAdress(n){
+			setAdress(n) {
 				let address =
 					(this.shopAdressInfo.province ? n[parseInt(this.shopAdressInfo.province)] : '') +
 					(this.shopAdressInfo.city ? n[parseInt(this.shopAdressInfo.city)] : '') +
 					(this.shopAdressInfo.district ? n[parseInt(this.shopAdressInfo.district)] : '') +
 					(this.shopAdressInfo.street ? n[parseInt(this.shopAdressInfo.street)] : '') +
 					this.shopAdressInfo.detailedAddress ? this.shopAdressInfo.detailedAddress : ''
-					this.$set(this.shopAdressInfo, 'address', address)
+				this.shopAdressInfo.address = address
 				getApp().globalData.shopAdressInfo = this.shopAdressInfo
 			},
 			goback() {
@@ -188,8 +188,7 @@
 				let that = this
 				this.$api.post('Aftersale/afterSalesDetails', params).then(res => {
 					if (res.status === "success") {
-						let dingdan = res.data.dingdan || {}
-						that.aftersaleLogList = res.data.aftersaleLogList || []
+
 						let dingdanGood = res.data.dingdanGood || {}
 						dingdanGood.photoPath = that.$api.ip + res.data.dingdanGood.photoPath
 						if (dingdanGood.norms.length > 0) {
@@ -201,13 +200,17 @@
 							})
 							dingdanGood.norms = objarr
 						}
-						if(res.data.afterSale){
+						if (res.data.afterSale) {
 							dingdanGood.newgoodsnorms = res.data.afterSale.newgoodsnorms
 						}
 						that.dingdanGood = dingdanGood
-						let shopReturnsAddress = res.data.shopReturnsAddress[0] || {}
+
 						that.afterSale = res.data.afterSale || {}
+
+						that.aftersaleLogList = res.data.aftersaleLogList || []
+
 						that.nowOverallProgress = res.data.aftersaleLogList[0] || {}
+
 						if (res.data.dictionaryList && res.data.dictionaryList.length > 0) {
 							let filterKey = ''
 							if (that.afterSale.aftersaletype === '退货退款') {
@@ -230,17 +233,10 @@
 								that.dictionary = dictionary[0]
 							}
 						}
-						
-						that.shopAdressInfo = {
-							consignee: shopReturnsAddress.consignee || '',
-							phone: shopReturnsAddress.telephone || '',
-							province: shopReturnsAddress.province,
-							city: shopReturnsAddress.city,
-							district: shopReturnsAddress.district,
-							street: shopReturnsAddress.street,
-							detailedAddress: shopReturnsAddress.detailedAddress
-						}
+
+
 						let userAdressInfo = {}
+						let dingdan = res.data.dingdan || {}
 						if (dingdan.address && dingdan.address.value) {
 							let info = JSON.parse(dingdan.address.value)
 							userAdressInfo = {
@@ -249,9 +245,21 @@
 								address: info.area ? info.area + (info.detailedAddress || '') : ''
 							}
 						}
-						
 						getApp().globalData.userAdressInfo = userAdressInfo
+
+						let shopReturnsAddress = res.data.shopReturnsAddress[0] || {}
+						that.shopAdressInfo = {
+							consignee: shopReturnsAddress.consignee || '',
+							phone: shopReturnsAddress.telephone || '',
+							province: shopReturnsAddress.province,
+							city: shopReturnsAddress.city,
+							district: shopReturnsAddress.district,
+							street: shopReturnsAddress.street,
+							detailedAddress: shopReturnsAddress.detailedAddress,
+							address: ''
+						}
 						that.getJson()
+
 						that.mescroll.endSuccess()
 					} else {
 						this.mescroll.endErr()

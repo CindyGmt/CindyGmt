@@ -153,7 +153,7 @@
 				let that = this
 				this.wloptions.forEach(item => {
 					if (item.name === val) {
-						that.$set(that.formData, 'expresscom', item.code)
+						that.formData.expresscom = item.code
 					}
 				})
 				if (this.formData.expresscom === '') {
