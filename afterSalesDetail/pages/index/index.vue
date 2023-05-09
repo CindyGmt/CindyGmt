@@ -58,7 +58,7 @@
 								<view class="info dis-i-b ma-l-21" v-if="dingdanGood.newgoodsnorms && dingdanGood.newgoodsnorms.length > 0">
 									换货规格：
 									<text :class="[i > 0 ? 'ma-l-21' : '']" v-for="(item, i) in dingdanGood.newgoodsnorms"
-										:key="item.key">{{item.value}}</text>
+										:key="i">{{item}}</text>
 								</view>
 							</view>
 						</view>
@@ -123,7 +123,9 @@
 				dingdanGood: {},
 				afterSale: {},
 				nowShippingLogistics: {},
-				shopAdressInfo: {}
+				shopAdressInfo: {
+					address: ''
+				}
 			}
 		},
 		onLoad() {
@@ -148,29 +150,27 @@
 			},
 			getJson: function() {
 				if (uni.getStorageSync('pcas_code')) {
-					let obj = {}
-					this.nameMap(uni.getStorageSync('pcas_code'), obj);
-					this.setAdress(obj)
+					this.setAdress(uni.getStorageSync('pcas_code'))
 					return
 				}
 				let that = this
 				const url = "pcas/pcas-code.json"; //获取JSON格式的全国数据
 				this.$api.get(url).then(res => {
-					uni.setStorage({
-						key: 'pcas_code',
-						data: res
-					})
 					let obj = {}
 					that.nameMap(res, obj);
+					uni.setStorage({
+						key: 'pcas_code',
+						data: obj
+					})
 					that.setAdress(obj)
 				})
 			},
 			setAdress(n){
 				let address =
-					(n[this.shopAdressInfo.province] || '') +
-					(n[this.shopAdressInfo.city] || '') +
-					(n[this.shopAdressInfo.district] || '') +
-					(n[this.shopAdressInfo.street] || '') +
+					(this.shopAdressInfo.province ? n[parseInt(this.shopAdressInfo.province)] : '') +
+					(this.shopAdressInfo.city ? n[parseInt(this.shopAdressInfo.city)] : '') +
+					(this.shopAdressInfo.district ? n[parseInt(this.shopAdressInfo.district)] : '') +
+					(this.shopAdressInfo.street ? n[parseInt(this.shopAdressInfo.street)] : '') +
 					this.shopAdressInfo.detailedAddress ? this.shopAdressInfo.detailedAddress : ''
 					this.$set(this.shopAdressInfo, 'address', address)
 				getApp().globalData.shopAdressInfo = this.shopAdressInfo
@@ -201,14 +201,8 @@
 							})
 							dingdanGood.norms = objarr
 						}
-						if(res.data.afterSale && res.data.afterSale.newgoodsnorms.length > 0){
-							let newgoodsnorms = res.data.afterSale.newgoodsnorms
-							let objarr = []
-							newgoodsnorms.forEach(item => {
-								let obj = JSON.parse(item.value)
-								objarr.push(obj)
-							})
-							dingdanGood.newgoodsnorms = objarr
+						if(res.data.afterSale){
+							dingdanGood.newgoodsnorms = res.data.afterSale.newgoodsnorms
 						}
 						that.dingdanGood = dingdanGood
 						let shopReturnsAddress = res.data.shopReturnsAddress[0] || {}
