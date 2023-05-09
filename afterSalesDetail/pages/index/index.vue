@@ -200,7 +200,15 @@
 							dingdanGood.norms = objarr
 						}
 						if (res.data.afterSale) {
-							dingdanGood.newgoodsnorms = res.data.afterSale.newgoodsnorms
+							if (res.data.afterSale.newgoodsnorms.length > 0) {
+								let newgoodsnorms = res.data.afterSale.newgoodsnorms
+								let objarr = []
+								newgoodsnorms.forEach(item => {
+									let obj = JSON.parse(item.value)
+									objarr.push(obj.key)
+								})
+								dingdanGood.newgoodsnorms = objarr
+							}
 						}
 						that.dingdanGood = dingdanGood
 
