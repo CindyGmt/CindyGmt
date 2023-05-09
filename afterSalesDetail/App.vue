@@ -12,10 +12,8 @@
 		onLaunch: function() {
 			this.getUserInfo()
 		},
-		onShow: function() {
-		},
-		onHide: function() {
-		},
+		onShow: function() {},
+		onHide: function() {},
 		methods: {
 			getUserInfo() {
 				let that = this
