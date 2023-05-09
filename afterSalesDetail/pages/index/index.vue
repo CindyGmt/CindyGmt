@@ -123,8 +123,7 @@
 				dingdanGood: {},
 				afterSale: {},
 				nowShippingLogistics: {},
-				shopAdressInfo: {},
-				optionsNameMap: {}
+				shopAdressInfo: {}
 			}
 		},
 		onLoad() {
@@ -134,14 +133,14 @@
 			downCallback() {
 				this.getAfterSalesDetails()
 			},
-			nameMap(arr) {
+			nameMap(arr, obj) {
 				let that = this
 				if (arr.length > 0) {
 					arr.forEach(item => {
-						that.optionsNameMap[item.value] = item.label
+						obj[item.value] = item.label
 						if (item.children) {
 							if (item.children.length > 0) {
-								that.nameMap(item.children)
+								that.nameMap(item.children, obj)
 							}
 						}
 					})
@@ -149,8 +148,9 @@
 			},
 			getJson: function() {
 				if (uni.getStorageSync('pcas_code')) {
-					this.nameMap(uni.getStorageSync('pcas_code'));
-					this.setAdress(this.optionsNameMap)
+					let obj = {}
+					this.nameMap(uni.getStorageSync('pcas_code'), obj);
+					this.setAdress(obj)
 					return
 				}
 				let that = this
@@ -160,8 +160,9 @@
 						key: 'pcas_code',
 						data: res
 					})
-					that.nameMap(res);
-					that.setAdress(that.optionsNameMap)
+					let obj = {}
+					that.nameMap(res, obj);
+					that.setAdress(obj)
 				})
 			},
 			setAdress(n){

@@ -78,6 +78,7 @@
 				},
 				oldOp: {},
 				formData: {},
+				oldExpresscom:'',
 				expresscom: '',
 				telephone: '',
 				rules: {
@@ -103,9 +104,9 @@
 		onLoad(option) {
 			this.oldOp = option
 			this.init(option)
+			this.getExpressList()
 			let windowInfo = uni.getWindowInfo()
 			this.labelWidth = (windowInfo.screenWidth / 750) * 200
-			this.getExpressList()
 		},
 		methods: {
 			init(option) {
@@ -115,6 +116,7 @@
 					expressnum: option.expressnum,
 				}
 				this.telephone = option.telephone
+				this.expresscom = this.oldExpresscom
 				if (this.formData.expressnum) {
 					this.show = true
 				}
@@ -136,6 +138,7 @@
 						res.forEach(item => {
 							if (item.code === that.formData.expresscom) {
 								that.expresscom = item.name
+								that.oldExpresscom = item.name
 							}
 						})
 					}
