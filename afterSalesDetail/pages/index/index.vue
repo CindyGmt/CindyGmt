@@ -135,45 +135,44 @@
 			downCallback() {
 				this.getAfterSalesDetails()
 			},
-			nameMap(arr, obj) {
+			getJson: function() {
 				let that = this
-				if (arr.length > 0) {
+				var nameMap = function(arr, code) {
+					let obj = {}
 					arr.forEach(item => {
-						obj[item.value] = item.label
-						if (item.children) {
-							if (item.children.length > 0) {
-								that.nameMap(item.children, obj)
-							}
+						if(item.value === code){
+							obj = JSON.parse((JSON.stringify(item)))
 						}
 					})
+					return obj
 				}
-			},
-			getJson: function() {
+				
+				var setAdress = function(res) {
+					let data = res
+					let adressStr = ''
+					for(let i = 0; i < that.shopAdressInfo.addressArr.length; i++){
+						
+						let obj = nameMap(data, that.shopAdressInfo.addressArr[i]);
+						adressStr += obj.label || ''
+						if(obj.children && obj.children.length > 0){
+							data = obj.children
+						}
+					}
+					that.shopAdressInfo.address = adressStr
+					getApp().globalData.shopAdressInfo = that.shopAdressInfo
+				}
 				if (uni.getStorageSync('pcas_code')) {
-					this.setAdress(uni.getStorageSync('pcas_code'))
+					setAdress(uni.getStorageSync('pcas_code'))
 					return
 				}
-				let that = this
 				const url = "pcas/pcas-code.json"; //获取JSON格式的全国数据
 				this.$api.get(url).then(res => {
-					let obj = {}
-					that.nameMap(res, obj);
 					uni.setStorage({
 						key: 'pcas_code',
-						data: obj
+						data: res
 					})
-					that.setAdress(obj)
+					setAdress(res)
 				})
-			},
-			setAdress(n) {
-				let address =
-					(this.shopAdressInfo.province ? n[parseInt(this.shopAdressInfo.province)] : '') +
-					(this.shopAdressInfo.city ? n[parseInt(this.shopAdressInfo.city)] : '') +
-					(this.shopAdressInfo.district ? n[parseInt(this.shopAdressInfo.district)] : '') +
-					(this.shopAdressInfo.street ? n[parseInt(this.shopAdressInfo.street)] : '') +
-					this.shopAdressInfo.detailedAddress ? this.shopAdressInfo.detailedAddress : ''
-				this.shopAdressInfo.address = address
-				getApp().globalData.shopAdressInfo = this.shopAdressInfo
 			},
 			goback() {
 				this.$bridge.callmethod('goBack', {}, () => {})
@@ -248,14 +247,16 @@
 						getApp().globalData.userAdressInfo = userAdressInfo
 
 						let shopReturnsAddress = res.data.shopReturnsAddress[0] || {}
+						let addressArr =  []
+						shopReturnsAddress.province && addressArr.push(shopReturnsAddress.province)
+						shopReturnsAddress.city && addressArr.push(shopReturnsAddress.city)
+						shopReturnsAddress.district && addressArr.push(shopReturnsAddress.district)
+						shopReturnsAddress.street && addressArr.push(shopReturnsAddress.street)
 						that.shopAdressInfo = {
 							consignee: shopReturnsAddress.consignee || '',
 							phone: shopReturnsAddress.telephone || '',
-							province: shopReturnsAddress.province,
-							city: shopReturnsAddress.city,
-							district: shopReturnsAddress.district,
-							street: shopReturnsAddress.street,
 							detailedAddress: shopReturnsAddress.detailedAddress,
+							addressArr,
 							address: ''
 						}
 						that.getJson()
