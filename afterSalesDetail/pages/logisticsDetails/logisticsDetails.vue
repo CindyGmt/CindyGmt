@@ -92,7 +92,6 @@
 				this.$api.post('courier/checkOrder', this.params).then(res => {
 					if (res.status === 'success') {
 						let data = JSON.parse(res.data)
-						console.log(data)
 						if (data) {
 							let stepsList = data.Traces || []
 							stepsList.reverse()

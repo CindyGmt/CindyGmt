@@ -241,7 +241,7 @@
 							userAdressInfo = {
 								consignee: info.consignee || '',
 								phone: info.telephone || '',
-								address: info.area ? info.area + (info.detailedAddress || '') : ''
+								address: info.province + info.city + info.district + info.street + info.detailedAddress
 							}
 						}
 						getApp().globalData.userAdressInfo = userAdressInfo
