@@ -135,45 +135,6 @@
 			downCallback() {
 				this.getAfterSalesDetails()
 			},
-			getJson: function() {
-				let that = this
-				var nameMap = function(arr, code) {
-					let obj = {}
-					arr.forEach(item => {
-						if(item.value === code){
-							obj = JSON.parse((JSON.stringify(item)))
-						}
-					})
-					return obj
-				}
-				
-				var setAdress = function(res) {
-					let data = res
-					let adressStr = ''
-					for(let i = 0; i < that.shopAdressInfo.addressArr.length; i++){
-						
-						let obj = nameMap(data, that.shopAdressInfo.addressArr[i]);
-						adressStr += obj.label || ''
-						if(obj.children && obj.children.length > 0){
-							data = obj.children
-						}
-					}
-					that.shopAdressInfo.address = adressStr
-					getApp().globalData.shopAdressInfo = that.shopAdressInfo
-				}
-				if (uni.getStorageSync('pcas_code')) {
-					setAdress(uni.getStorageSync('pcas_code'))
-					return
-				}
-				const url = "pcas/pcas-code.json"; //获取JSON格式的全国数据
-				this.$api.get(url).then(res => {
-					uni.setStorage({
-						key: 'pcas_code',
-						data: res
-					})
-					setAdress(res)
-				})
-			},
 			goback() {
 				this.$bridge.callmethod('goBack', {}, () => {})
 			},
@@ -247,19 +208,12 @@
 						getApp().globalData.userAdressInfo = userAdressInfo
 
 						let shopReturnsAddress = res.data.shopReturnsAddress[0] || {}
-						let addressArr =  []
-						shopReturnsAddress.province && addressArr.push(shopReturnsAddress.province)
-						shopReturnsAddress.city && addressArr.push(shopReturnsAddress.city)
-						shopReturnsAddress.district && addressArr.push(shopReturnsAddress.district)
-						shopReturnsAddress.street && addressArr.push(shopReturnsAddress.street)
 						that.shopAdressInfo = {
 							consignee: shopReturnsAddress.consignee || '',
 							phone: shopReturnsAddress.telephone || '',
-							detailedAddress: shopReturnsAddress.detailedAddress,
-							addressArr,
-							address: ''
+							address: shopReturnsAddress.fullAddress || ''
 						}
-						that.getJson()
+						getApp().globalData.shopAdressInfo = that.shopAdressInfo
 
 						that.mescroll.endSuccess()
 					} else {
