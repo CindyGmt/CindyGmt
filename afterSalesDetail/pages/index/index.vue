@@ -52,11 +52,11 @@
 										:key="item.key">{{item.key + ':' + item.value}}</text>
 								</view>
 							</view>
-							<view class="bottom-box word-nowrap">
-								<view class="info dis-i-b">
+							<view class="bottom-box">
+								<view class="info">
 									售后原因：{{afterSale.reason}}
 								</view>
-								<view class="info dis-i-b ma-l-21"
+								<view class="info"
 									v-if="dingdanGood.newgoodsnorms && dingdanGood.newgoodsnorms.length > 0">
 									换货规格：
 									<text :class="[i > 0 ? 'ma-l-21' : '']"
@@ -200,15 +200,7 @@
 							dingdanGood.norms = objarr
 						}
 						if (res.data.afterSale) {
-							if (res.data.afterSale.newgoodsnorms.length > 0) {
-								let newgoodsnorms = res.data.afterSale.newgoodsnorms
-								let objarr = []
-								newgoodsnorms.forEach(item => {
-									let obj = JSON.parse(item.value)
-									objarr.push(obj.key)
-								})
-								dingdanGood.newgoodsnorms = objarr
-							}
+							dingdanGood.newgoodsnorms = res.data.afterSale.newgoodsnorms || []
 						}
 						that.dingdanGood = dingdanGood
 
