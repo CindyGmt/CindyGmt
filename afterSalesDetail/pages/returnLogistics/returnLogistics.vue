@@ -42,24 +42,23 @@
 			</view>
 
 			<button class="bg-btn" @click="submit('logisticsform')">确定</button>
-
-			<!--快递公司列表  -->
-			<uni-popup ref="popup" :mask-click="false">
-				<view class="popup-content">
-					<view class="ul-list">
-						<uni-data-checkbox v-model="formData.expresscom" :localdata="wloptions"
-							:map="{text:'name',value:'code'}" :multiple="false" mode="list" icon="right"
-							selectedColor='#E80707' selectedTextColor='#E80707'
-							@change="changeWlname"></uni-data-checkbox>
-					</view>
-					<button class="bg-btn" @click="close()">确定</button>
-				</view>
-			</uni-popup>
-			<!--自己输入的快递公司没有匹配项  -->
-			<uni-popup ref="popupTip">
-				<text class="tip">未匹配到快递公司，请选择快递公司</text>
-			</uni-popup>
 		</mescroll-body>
+		<!--快递公司列表  -->
+		<uni-popup ref="popup" :mask-click="false">
+			<view class="popup-content">
+				<view class="ul-list">
+					<uni-data-checkbox v-model="formData.expresscom" :localdata="wloptions"
+						:map="{text:'name',value:'code'}" :multiple="false" mode="list" icon="right"
+						selectedColor='#E80707' selectedTextColor='#E80707'
+						@change="changeWlname"></uni-data-checkbox>
+				</view>
+				<button class="bg-btn" @click="close()">确定</button>
+			</view>
+		</uni-popup>
+		<!--自己输入的快递公司没有匹配项  -->
+		<uni-popup ref="popupTip">
+			<text class="tip">未匹配到快递公司，请选择快递公司</text>
+		</uni-popup>
 	</view>
 </template>
 
