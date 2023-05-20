@@ -150,7 +150,7 @@
 					if (res.status === "success") {
 
 						let dingdanGood = res.data.dingdanGood || {}
-						dingdanGood.photoPath = that.$api.ip + res.data.dingdanGood.photoPath
+						dingdanGood.photoPath = window.location.origin + '/' + res.data.dingdanGood.photoPath
 						if (dingdanGood.norms.length > 0) {
 							let norms = dingdanGood.norms
 							let objarr = []
